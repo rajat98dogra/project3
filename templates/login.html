@@ -11,9 +11,12 @@ html {
   background-color: #56baed;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  height: 100vh;
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+  height:100vh;
 }
 
 a {
@@ -275,13 +278,14 @@ input[type=text]:placeholder {
 <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
+
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+      <img src="{{url_for('static', filename='image.jpg')}}" width="20px",height="20px" />
     </div>
 {% if mes%}
         <div class="alert alert-danger" role="alert">
@@ -298,7 +302,7 @@ input[type=text]:placeholder {
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="/signin">Forgot Password?</a>
+      <a class="underlineHover" href="/signin">Sign Up</a>
     </div>
 
   </div>

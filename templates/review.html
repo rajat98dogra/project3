@@ -5,17 +5,26 @@
     <title>review</title>
 </head>
 <style>
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
     .wrapper {
+    margin:1em 2em 2em 2em;
   position: relative;
   perspective: 40em;
   display: grid;
   transform-style: preserve-3d;
+
 }
 
 .card {
   grid-area: 1 / 1;
   height: 100px;
   width: 300px;
+  margin-bottom:3em;
   transform: translateX(10px) rotateY(25deg) rotateX(10deg);
   background: rgba(249, 198, 26, 0.88);
   display: flex;
@@ -36,6 +45,7 @@ h1 {
 }
 
 .card .enclosed {
+
   background: #000;
   line-height: 1;
   color: rgba(249, 198, 26, 1);
@@ -48,9 +58,10 @@ h1 {
 .wrapper:before {
   --bw: 9px;
   grid-area: 1 / 1;
+
   content: '';
   backface-visibility: hidden;
-  height: 90%;
+  height: 50%;
   width: 100%;
   margin-top: calc(-1 * var(--bw));
   margin-left: calc(-1 * var(--bw));
@@ -75,29 +86,25 @@ h1 {
 }
 
 
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(to bottom right, #3C4BBD 15%, transparent),
-    radial-gradient(circle at 100% 0%, rgba(255,255,255,.2) 10%, transparent 20%) center center / 15px 15px,
-    linear-gradient(to bottom right, #3C4BBD, #57ADD8);
-}
 </style>
 
 <body>
-   {%for i in res%}
+<h1>WELCOME TO BOOK "REVIEW PAGE"</h1>
 <div class="wrapper">
 
   <div class="card">
     <h1>
-      <span class="enclosed">{{res[i]}}</span>{{i}}
+      <span class="enclosed">{{res.title}}</span>Title
+    </h1>
+  </div>
+
+</div>
+   {%for i in res.res%}
+<div class="wrapper">
+
+  <div class="card">
+    <h1>
+      <span class="enclosed">{{res.res[i]}}</span>{{i}}
     </h1>
   </div>
 

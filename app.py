@@ -28,18 +28,19 @@ def login():
     if request.method=="POST":
         username = request.form.get('name')
         password = request.form.get('password')
-        print(username,password)
+        # print(username,password)
 
 
         rows = db.execute("SELECT username,password FROM users WHERE username = :username",
                             {"username": username})
         row=rows.fetchone()
-        print(row,'#####################################')
+        # print(row,'#####################################')
         if row:
             if row[0]==username and row[1]==password:
-                session['usernmae'] = row[0]
+                session['user'] = row[0]
                 d = db.execute("SELECT * FROM books").fetchall()
-                return render_template('book.html', res=d)
+                res = {"res":d,"username":username}
+                return render_template('book.html', res=res)
         else:
             mes="INVALID DETAILS"
             return render_template('login.html',mes=mes)
@@ -91,18 +92,18 @@ def search():
         print(value,option,"####################3")
 
         rows = db.execute("SELECT * FROM books WHERE {0} = '{1}'".format(option, value))
-        return render_template('book.html', res=rows)
+        return render_template('book.html', res={"res":rows})
     else:
         return redirect('/search')
 
-@app.route('/login/book/review<string:isbn>')
-def review(isbn):
+@app.route('/book/review<string:isbn>/<string:title>')
+def review(isbn,title):
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
                        params={"key": "I3Ux7Tpx9uwPDdNuuZ3Q", "isbns": isbn})
     res=(res.json())
     res=res['books'][0]
 
-    return render_template('review.html',res=res)
+    return render_template('review.html',res={"res":res,"title":title})
 
 if __name__ == '__main__':
     app.run(debug=True)

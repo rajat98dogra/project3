@@ -95,9 +95,52 @@ section{
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
+  a {
+	position:relative;
+	text-decoration: none;
+	color: white;
+ 	transition:color .15s ease-in-out;
+}
+
+  a:hover {
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+
+  a:after {
+	display:block;
+	content:"";
+	position: absolute;
+ 	right:0;
+ 	left:0;
+ 	width:100%;
+	height:3px;
+ 	opacity:0;
+	transform:translateY(-150%);
+ 	transition:transform .15s ease-in-out, opacity .15s ease-in-out;
+ 	background-color: red;
+}
+
+  a.is-active,
+  a:active,
+  a:focus,
+  a:hover {
+ 	color: red;
+}
+
+  a.is-active:after,
+a:active:after,
+a:focus:after,
+  a:hover:after {
+ 	transform:translateY(0);
+ 	opacity:1;
+}
+
+
     </style>
 </head>
 <body>
+<h2 style="margin-left:50%;">{{res.username}}</h2>
 <a href="/logout">LOG OUT</a>
 <form action="/search" method="POST">
     <input type="text" name="search" placeholder="search">
@@ -125,10 +168,11 @@ section{
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-      {%for title,author,year,isbn in res%}
+      {%for title,author,year,isbn in res.res%}
         <tr>
-            <td><a href={{ url_for('review',title=isbn)}}>{{title}}</a></td>
-          <td>{{author}} </td>
+            <td><a href={{ url_for("review",isbn=isbn,title=title) }}>{{title}}</a></td>
+<!--            <a href="#"><span data-hover="Seraglio">Seraglio</span></a>-->
+            <td>{{author}} </td>
           <td>{{year}}</td>
           <td>{{isbn}}</td>
         </tr>
